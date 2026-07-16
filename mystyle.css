@@ -46,3 +46,20 @@ tr.devname_PosPreset_F2 td {
 	padding-top: 12px !important;
 	padding-bottom: 8px !important;
 }
+
+/* Fixed-width icon/text slots so the shutter position icon lines up in a
+   column regardless of the varying length of the status text next to it
+   (col2 is center-aligned by the theme, which otherwise shifts the icon
+   left/right depending on "Up" vs "Pos 100 %" etc.) */
+.shutterIcon {
+	display: inline-block;
+	width: 26px;
+	text-align: center;
+	vertical-align: middle;
+}
+.shutterText {
+	display: inline-block;
+	width: 64px;
+	text-align: left;
+	vertical-align: middle;
+}
