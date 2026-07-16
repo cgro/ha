@@ -5,8 +5,13 @@ Symbols: `L` = Light  `S` = Shutter  `P` = Power socket  `★` = Central/Scene
 
 KNX group address format: `main/middle/sub`
 - Main `1/x/y` = Lights — `1/0/y` switch cmd, `1/4/y` status
-- Main `2/x/y` = Shutters — `2/0/y` move, `2/1/y` stop, `2/2/y` position set, `2/6/y` position status
+- Main `2/x/y` = Shutters — `2/0/y` move, `2/1/y` stop, `2/2/y` position set, `2/4/y`/`2/5/y`
+  end-position status (dpt1.011), `2/6/y` position status
 - Main `5/x/y` = Scenes
+
+> Note: `2/4/y`/`2/5/y` were corrected from `dpt1.008` to `dpt1.011` on 2026-07-16 — the
+> old type mislabeled the "reached top" confirmation as the text "down" in the web UI.
+> See `knx_GA_map.md` §5.2 for details.
 
 Full GA scheme (physical address space, middle group functions, sub-address tables): see [`knx_GA_map.md`](knx_GA_map.md)
 

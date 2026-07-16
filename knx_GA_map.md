@@ -119,14 +119,26 @@ Function codes per main group:
 
 ### 5.2 Jalousie — main group 2
 
-| GA function      | Format  |
-|------------------|---------|
-| Move up/down     | `2/0/z` |
-| Stop             | `2/1/z` |
-| Position setpoint| `2/2/z` |
-| End position up  | `2/4/z` |
-| End position down| `2/5/z` |
-| Position status  | `2/6/z` |
+| GA function      | Format  | DPT      |
+|------------------|---------|----------|
+| Move up/down     | `2/0/z` | dpt1.008 |
+| Stop             | `2/1/z` | dpt1.008 |
+| Position setpoint| `2/2/z` | dpt5.001 |
+| End position up  | `2/4/z` | dpt1.011 |
+| End position down| `2/5/z` | dpt1.011 |
+| Position status  | `2/6/z` | dpt5.001 |
+
+> **Correction (2026-07-16):** `2/4/z` and `2/5/z` were originally declared as `dpt1.008`
+> (Up/Down) in `device_config.cfg`. That datapoint's label semantics (0→"up", 1→"down")
+> don't match what these GAs actually carry — a boolean "reached end position"
+> confirmation, not a direction. Since FHEM's `state` reading is set from whichever GA
+> value arrived last, the mislabeled confirmation could silently overwrite a correct
+> position reading with the literal text "down" (observed on `SHU_F0_C1`, `SHU_F0_C3`,
+> `SHU_F1_office` after moving fully up). Fixed by retyping both GAs to `dpt1.011`
+> (inactive/active) and pinning `state` to the position-status GA (`2/6/z`, 0–100 %) via
+> a `stateRegex` attribute, applied to all 13 individually-addressable shutters across
+> F0/F1/F2. The three floor-wide broadcast devices (`SHU_F0_all`, `SHU_F1_all`,
+> `SHU_F2_all`) only define `2/0/z`/`2/1/z` and were never affected.
 
 | z   | Floor | Room / Device |
 |-----|-------|---------------|
