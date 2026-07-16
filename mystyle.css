@@ -28,3 +28,21 @@
 .col2 a {
 	text-decoration: none;
 }
+
+/* Set the "Position Preset %" row apart from the shutters above it.
+   !important is needed: brightstyle.css's "table.block td"/"table.block tr"
+   rules tie with a plain class selector on specificity, and whichever
+   loads last would otherwise win unpredictably. */
+tr.devname_PosPreset_F0,
+tr.devname_PosPreset_F1,
+tr.devname_PosPreset_F2 {
+	background: #eef5ff !important;
+}
+tr.devname_PosPreset_F0 td,
+tr.devname_PosPreset_F1 td,
+tr.devname_PosPreset_F2 td {
+	background: #eef5ff !important;
+	border-top: 3px solid #a9c4e6 !important;
+	padding-top: 12px !important;
+	padding-bottom: 8px !important;
+}
